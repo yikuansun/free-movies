@@ -11,16 +11,24 @@
     });
 </script>
 
+<div class="navbar sticky top-0 glass z-10 shadow-md">
+    <div class="flex-1">
+        <h2 class="text-2xl font-bold mx-3">Legally Free Movies</h2>
+    </div>
+    <div class="flex-none">
+    </div>
+</div>
+
 <div class="block text-center">   
     {#each movies as movie (movie.watchUrl)}
-        <div class="card bg-base-100 image-full w-54 h-80 shadow-sm inline-grid align-middle m-3">
+        <div class="card bg-base-100 image-full w-54 h-80 shadow-lg/32 inline-grid align-middle m-3">
             <figure>
                 <img
                     src={movie.poster}
                     alt={movie.title}
-                    class="brightness-100" />
+                    class="brightness-100 w-full" />
             </figure>
-            <div class="card-body bg-base-100/72 opacity-0 hover:opacity-100 transition-opacity text-left min-h-0">
+            <div class="card-body bg-neutral/72 opacity-0 hover:opacity-100 transition-opacity text-left min-h-0 overflow-hidden rounded-lg">
                 <h2 class="card-title">{movie.title}</h2>
                 <div class="grow overflow-hidden">
                     <p class="text-xs">{movie.description}</p>
