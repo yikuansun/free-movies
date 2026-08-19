@@ -35,6 +35,7 @@ async function getVideoMetadata(url: string) {
     poster: omdbData.Poster,
     description: omdbData.Plot,
     watchUrl: url,
+    rating: omdbData.imdbRating,
   };
 }
 
@@ -43,5 +44,6 @@ export async function createMovieCatalog() {
   const promises = movies.map((url) => getVideoMetadata(url));
   let catalog = await Promise.all(promises);
   catalog = catalog.filter((movie) => !!movie);
+  catalog.sort((a, b) => b.rating - a.rating);
   return catalog;
 };
