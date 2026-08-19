@@ -19,9 +19,11 @@
                     alt={movie.title}
                     class="brightness-100" />
             </figure>
-            <div class="card-body bg-base-100/72 opacity-0 hover:opacity-100 transition-opacity text-left">
+            <div class="card-body bg-base-100/72 opacity-0 hover:opacity-100 transition-opacity text-left min-h-0">
                 <h2 class="card-title">{movie.title}</h2>
-                <p>{movie.description}</p>
+                <div class="grow overflow-hidden">
+                    <p class="text-xs">{movie.description}</p>
+                </div>
                 <div class="card-actions justify-center">
                     <!--<button class="btn btn-secondary">Info</button>-->
                     <a target="_blank" href={movie.watchUrl}>
