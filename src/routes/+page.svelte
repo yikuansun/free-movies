@@ -19,7 +19,11 @@
     </div>
 </div>
 
-<div class="block text-center">   
+<div class="block text-center">
+    {#if movies.length === 0}
+        <br />
+        <span class="loading loading-spinner loading-lg"></span>
+    {/if}
     {#each movies as movie (movie.watchUrl)}
         <div
             class="group image-full card m-3 inline-grid h-80 w-54 bg-base-100 align-middle shadow-lg/32"
@@ -28,7 +32,8 @@
             aria-label="Show details for {movie.title}"
         >
             <figure>
-                <img src={movie.poster} alt={movie.title} class="w-full brightness-100" />
+                <img src={movie.poster} alt={movie.title} loading="lazy"
+                    class="w-full brightness-100 bg-base-300" />
             </figure>
             <div
                 class="pointer-events-none card-body min-h-0 overflow-hidden rounded-lg bg-neutral/72 text-left opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 group-focus:pointer-events-auto group-focus:opacity-100"
