@@ -41,7 +41,7 @@ async function getVideoMetadata(url: string) {
 export async function createMovieCatalog() {
   const movies = movieUrls.split("\n");
   const promises = movies.map((url) => getVideoMetadata(url));
-  const catalog = await Promise.all(promises);
-  catalog.filter((movie) => !!movie);
+  let catalog = await Promise.all(promises);
+  catalog = catalog.filter((movie) => !!movie);
   return catalog;
 };
