@@ -9,7 +9,13 @@ async function getVideoTitle(url: string) {
   const response = await fetch(endpoint);
   if (!response.ok) return null;
   const data = await response.json();
-  return data.title;
+  const title = data.title;
+
+  // Check if using title-year format (ex.: Cape Fear (1991))
+  const match = title.match(/^(.+?)\s+\((\d{4})\)$/)
+  if (match) return match[1];
+
+  return title;
 }
 
 async function getOmdbData(title: string) {
