@@ -21,14 +21,18 @@
 
 <div class="block text-center">   
     {#each movies as movie (movie.watchUrl)}
-        <div class="card bg-base-100 image-full w-54 h-80 shadow-lg/32 inline-grid align-middle m-3">
+        <div
+            class="group image-full card m-3 inline-grid h-80 w-54 bg-base-100 align-middle shadow-lg/32"
+            role="button"
+            tabindex="0"
+            aria-label="Show details for {movie.title}"
+        >
             <figure>
-                <img
-                    src={movie.poster}
-                    alt={movie.title}
-                    class="brightness-100 w-full" />
+                <img src={movie.poster} alt={movie.title} class="w-full brightness-100" />
             </figure>
-            <div class="card-body bg-neutral/72 opacity-0 hover:opacity-100 transition-opacity text-left min-h-0 overflow-hidden rounded-lg">
+            <div
+                class="pointer-events-none card-body min-h-0 overflow-hidden rounded-lg bg-neutral/72 text-left opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 group-focus:pointer-events-auto group-focus:opacity-100"
+            >
                 <h2 class="card-title">{movie.title}</h2>
                 <div class="grow overflow-hidden">
                     <p class="text-xs">{movie.description}</p>
