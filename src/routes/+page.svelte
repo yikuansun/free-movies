@@ -11,7 +11,7 @@
 </script>
 
 <div class="block text-center">   
-    {#each movies as movie (movie.imdbId)}
+    {#each movies as movie (movie.watchUrl)}
         <div class="card bg-base-100 image-full w-54 h-80 shadow-sm inline-grid align-middle m-3">
             <figure>
                 <img
