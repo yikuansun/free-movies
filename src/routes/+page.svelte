@@ -6,11 +6,12 @@
 
     onMount(async () => {
         movies = await createMovieCatalog();
+        console.log(movies);
     });
 </script>
 
 <ul>
     {#each movies as movie}
-        <li>{movie.title}</li>
+        <li>{movie.title} ({movie.year})</li>
     {/each}
 </ul>
