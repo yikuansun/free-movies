@@ -33,6 +33,8 @@ async function getVideoMetadata(url: string) {
     year: omdbData.Year,
     imdbId: omdbData.imdbID,
     poster: omdbData.Poster,
+    description: omdbData.Plot,
+    watchUrl: url,
   };
 }
 
