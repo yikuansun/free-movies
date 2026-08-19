@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
     import { createMovieCatalog } from '$lib/helpers/createMovieCatalog';
+    import Icon from '@iconify/svelte';
 
     let movies: any[] = $state([]);
 
@@ -25,9 +26,17 @@
                     <p class="text-xs">{movie.description}</p>
                 </div>
                 <div class="card-actions justify-center">
-                    <!--<button class="btn btn-secondary">Info</button>-->
+                    <a target="_blank" href="https://www.imdb.com/title/{movie.imdbId}">
+                        <button class="btn btn-secondary btn-sm">
+                            <Icon icon="lucide:info" inline={true} />
+                            Info
+                        </button>
+                    </a>
                     <a target="_blank" href={movie.watchUrl}>
-                        <button class="btn btn-primary">Watch</button>
+                        <button class="btn btn-primary btn-sm">
+                            <Icon icon="lucide:play" inline={true} />
+                            Watch
+                        </button>
                     </a>
                 </div>
             </div>
