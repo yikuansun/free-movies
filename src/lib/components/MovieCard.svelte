@@ -1,5 +1,5 @@
 <script lang="ts">
-    const { movie } = $props();
+    let { movie, watchlisted = false, favorited = false } = $props();
 
     import Icon from '@iconify/svelte';
 
@@ -31,10 +31,19 @@
             <p class="text-xs">{movie.description}</p>
         </div>
         <div class="card-actions justify-center">
-            <a target="_blank" href="https://www.imdb.com/title/{movie.imdbId}" class="btn btn-secondary btn-sm btn-block">
-                <Icon icon="lucide:info" inline={true} />
-                Learn More
-            </a>
+            <div class="w-full flex flex-row gap-2">
+                <a target="_blank" href="https://www.imdb.com/title/{movie.imdbId}" class="btn btn-soft btn-info btn-sm flex-1" title="Learn More">
+                    <Icon icon="lucide:info" inline={true} />
+                </a>
+                <label title={watchlisted ? "Remove from Watchlist" : "Add to Watchlist"} class="btn {watchlisted ? "" : "btn-soft"} btn-accent btn-sm flex-1">
+                    <Icon icon="lucide:list-video" inline={true} />
+                    <input type="checkbox" class="hidden" bind:checked={watchlisted} />
+                </label>
+                <label title={favorited ? "Unfavorite" : "Favorite"} class="btn {favorited ? "": "btn-soft"} btn-secondary btn-sm flex-1">
+                    <Icon icon="lucide:heart" inline={true} />
+                    <input type="checkbox" class="hidden" bind:checked={favorited} />
+                </label>
+            </div>
             <a target="_blank" href={movie.watchUrl} class="btn btn-primary btn-sm btn-block w-full">
                 <Icon icon="lucide:play" inline={true} />
                 Watch Now
