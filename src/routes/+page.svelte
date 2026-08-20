@@ -3,7 +3,11 @@
     import movieCatalog from '$lib/assets/movie-catalog.json';
 	import MovieCard from '$lib/components/MovieCard.svelte';
 
-    let movies: any[] = $state(movieCatalog);
+    let movies: any[] = $state([]);
+
+    onMount(() => {
+        movies = movieCatalog;
+    })
 </script>
 
 <div class="navbar sticky top-0 glass z-10 shadow-md">
