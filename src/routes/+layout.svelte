@@ -3,8 +3,14 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import Icon from '@iconify/svelte';
 	import { resolve } from '$app/paths';
+	import { syncLocalStore } from '$lib/localStore.svelte';
+	import { onMount } from 'svelte';
 
 	let { children } = $props();
+
+	onMount(() => {
+		syncLocalStore();
+	});
 </script>
 
 <div class="navbar sticky top-0 glass z-10 shadow-md">

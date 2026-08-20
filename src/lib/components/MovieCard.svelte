@@ -1,5 +1,9 @@
 <script lang="ts">
-    let { movie, watchlisted = false, favorited = false } = $props();
+    const { movie } = $props();
+    import { localStore } from "$lib/localStore.svelte.ts";
+    
+    let watchlisted = $derived(localStore.watchlist.includes(movie.watchUrl));
+    let favorited = $derived(localStore.favorites.includes(movie.watchUrl));
 
     import Icon from '@iconify/svelte';
 
@@ -35,14 +39,26 @@
                 <a target="_blank" href="https://www.imdb.com/title/{movie.imdbId}" class="btn btn-soft btn-info btn-sm flex-1" title="Learn More">
                     <Icon icon="lucide:info" inline={true} />
                 </a>
-                <label title={watchlisted ? "Remove from Watchlist" : "Add to Watchlist"} class="btn {watchlisted ? "" : "btn-soft"} btn-accent btn-sm flex-1">
+                <button title={watchlisted ? "Remove from Watchlist" : "Add to Watchlist"} class="btn {watchlisted ? "" : "btn-soft"} btn-accent btn-sm flex-1"
+                    onclick={() => {
+                        if (watchlisted) {
+                            localStore.watchlist = localStore.watchlist.filter((url) => url !== movie.watchUrl);
+                        } else {
+                            localStore.watchlist.push(movie.watchUrl);
+                        }
+                    }}>
                     <Icon icon="lucide:list-video" inline={true} />
-                    <input type="checkbox" class="hidden" bind:checked={watchlisted} />
-                </label>
-                <label title={favorited ? "Unfavorite" : "Favorite"} class="btn {favorited ? "": "btn-soft"} btn-secondary btn-sm flex-1">
+                </button>
+                <button title={favorited ? "Unfavorite" : "Favorite"} class="btn {favorited ? "": "btn-soft"} btn-secondary btn-sm flex-1"
+                    onclick={() => {
+                        if (favorited) {
+                            localStore.favorites = localStore.favorites.filter((url) => url !== movie.watchUrl);
+                        } else {
+                            localStore.favorites.push(movie.watchUrl);
+                        }
+                    }}>
                     <Icon icon="lucide:heart" inline={true} />
-                    <input type="checkbox" class="hidden" bind:checked={favorited} />
-                </label>
+                </button>
             </div>
             <a target="_blank" href={movie.watchUrl} class="btn btn-primary btn-sm btn-block w-full">
                 <Icon icon="lucide:play" inline={true} />
