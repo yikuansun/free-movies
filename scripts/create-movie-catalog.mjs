@@ -1,6 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { loadEnvFile } from 'node:process';
+import { youtube } from '@googleapis/youtube';
 
 loadEnvFile(fileURLToPath(new URL('../.env', import.meta.url)));
 const { OMDB_API_KEY } = process.env;
@@ -9,14 +10,23 @@ const inputFile = fileURLToPath(new URL('../src/lib/assets/movie-urls.txt', impo
 const outputFile = fileURLToPath(new URL('../src/lib/assets/movie-catalog.json', import.meta.url));
 
 async function getVideoTitle(url) {
-  const endpoint = new URL("https://youtube.com/oembed");
-  endpoint.searchParams.append("url", url);
-  endpoint.searchParams.append("format", "json");
+  const yt = youtube({
+    version: "v3",
+    auth: process.env.YOUTUBE_DATA_API_KEY,
+  });
 
-  const response = await fetch(endpoint);
-  if (!response.ok) return null;
-  const data = await response.json();
-  const title = data.title;
+  const videoId = new URL(url).searchParams.get('v');
+  if (!videoId) return null;
+
+  const response = await yt.videos.list({
+    part: ['status', 'snippet'],
+    id: [videoId],
+  });
+
+  const video = response.data.items?.[0];
+  if (!video) return null;
+
+  const title = video.snippet.title;
 
   // Check if using title-year format (ex.: Cape Fear (1991))
   const match = title.match(/^(.+?)\s+\((\d{4})\)$/)
