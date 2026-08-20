@@ -17,7 +17,7 @@
             <img src={movie.poster} alt={movie.title} loading="lazy"
                 class="w-full brightness-100" onerror={() => { imageError = true; }} />
         {:else}
-            <div class="w-full h-full flex justify-center items-center">
+            <div class="w-full h-full flex justify-center items-center text-center">
                 <h2 class="text-2xl opacity-55 font-bold">{movie.title}</h2>
             </div>
         {/if}
