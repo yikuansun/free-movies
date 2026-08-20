@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { loadEnvFile } from 'node:process';
 
 loadEnvFile(fileURLToPath(new URL('../.env', import.meta.url)));
-const { PUBLIC_OMDB_API_KEY } = process.env;
+const { OMDB_API_KEY } = process.env;
 
 const inputFile = fileURLToPath(new URL('../src/lib/assets/movie-urls.txt', import.meta.url));
 const outputFile = fileURLToPath(new URL('../src/lib/assets/movie-catalog.json', import.meta.url));
@@ -27,7 +27,7 @@ async function getVideoTitle(url) {
 
 async function getOmdbData(title) {
   const endpoint = new URL("https://www.omdbapi.com/");
-  endpoint.searchParams.append("apikey", PUBLIC_OMDB_API_KEY);
+  endpoint.searchParams.append("apikey", OMDB_API_KEY);
   endpoint.searchParams.append("t", title);
 
   const response = await fetch(endpoint);

@@ -1,14 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-    import { createMovieCatalog } from '$lib/helpers/createMovieCatalog';
+    import movieCatalog from '$lib/assets/movie-catalog.json';
 	import MovieCard from '$lib/components/MovieCard.svelte';
 
-    let movies: any[] = $state([]);
-
-    onMount(async () => {
-        movies = await createMovieCatalog();
-        console.log(movies);
-    });
+    let movies: any[] = $state(movieCatalog);
 </script>
 
 <div class="navbar sticky top-0 glass z-10 shadow-md">
