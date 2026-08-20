@@ -23,24 +23,21 @@
         {/if}
     </figure>
     <div
-        class="pointer-events-none card-body min-h-0 overflow-hidden rounded-lg bg-neutral/72 text-left opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 group-focus:pointer-events-auto group-focus:opacity-100"
+        class="pointer-events-none card-body min-h-0 overflow-hidden rounded-lg bg-neutral/72 backdrop-blur-xs text-left opacity-0 transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 group-focus:pointer-events-auto group-focus:opacity-100"
     >
         <h2 class="card-title">{movie.title}</h2>
         <div class="grow overflow-hidden">
+            <p class="text-sm mb-1 text-nowrap">{movie.runtime} • {movie.rated} • {movie.genres?.[0]}</p>
             <p class="text-xs">{movie.description}</p>
         </div>
         <div class="card-actions justify-center">
-            <a target="_blank" href="https://www.imdb.com/title/{movie.imdbId}">
-                <button class="btn btn-secondary btn-sm">
-                    <Icon icon="lucide:info" inline={true} />
-                    Info
-                </button>
+            <a target="_blank" href="https://www.imdb.com/title/{movie.imdbId}" class="btn btn-secondary btn-sm btn-block">
+                <Icon icon="lucide:info" inline={true} />
+                Learn More
             </a>
-            <a target="_blank" href={movie.watchUrl}>
-                <button class="btn btn-primary btn-sm">
-                    <Icon icon="lucide:play" inline={true} />
-                    Watch
-                </button>
+            <a target="_blank" href={movie.watchUrl} class="btn btn-primary btn-sm btn-block w-full">
+                <Icon icon="lucide:play" inline={true} />
+                Watch Now
             </a>
         </div>
     </div>

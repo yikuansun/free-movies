@@ -39,6 +39,7 @@ async function getOmdbData(title) {
   const endpoint = new URL("https://www.omdbapi.com/");
   endpoint.searchParams.append("apikey", OMDB_API_KEY);
   endpoint.searchParams.append("t", title);
+  endpoint.searchParams.append("type", "movie");
 
   const response = await fetch(endpoint);
   if (!response.ok) return null;
@@ -53,12 +54,15 @@ async function getVideoMetadata(url) {
   if (!omdbData) return null;
   return {
     title: title,
-    year: omdbData.Year,
+    year: parseInt(omdbData.Year),
     imdbId: omdbData.imdbID,
     poster: omdbData.Poster,
     description: omdbData.Plot,
     watchUrl: url,
-    rating: omdbData.imdbRating,
+    rating: parseFloat(omdbData.imdbRating),
+    runtime: omdbData.Runtime,
+    genres: omdbData.Genre?.split(/,\s*/),
+    rated: omdbData.Rated,
   };
 }
 
