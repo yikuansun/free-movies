@@ -77,5 +77,8 @@ export async function createMovieCatalog(movieUrls) {
 
 const movieUrls = await readFile(inputFile, 'utf8');
 const catalog = await createMovieCatalog(movieUrls);
+
+if (catalog.length === 0) throw new Error("Could not write any movies. Check API limits.");
+
 await writeFile(outputFile, JSON.stringify(catalog, null, 2), 'utf8');
 console.log(`Wrote ${catalog.length} movies to ${outputFile}`);
