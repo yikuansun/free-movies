@@ -1,6 +1,6 @@
 <script lang="ts">
     const { movie } = $props();
-    import { localStore } from "$lib/localStore.svelte.ts";
+    import { localStore } from "$lib/localStore.svelte";
     
     let watchlisted = $derived(localStore.watchlist.includes(movie.watchUrl));
     let favorited = $derived(localStore.favorites.includes(movie.watchUrl));
@@ -44,7 +44,7 @@
                         if (watchlisted) {
                             localStore.watchlist = localStore.watchlist.filter((url) => url !== movie.watchUrl);
                         } else {
-                            localStore.watchlist.push(movie.watchUrl);
+                            localStore.watchlist = [movie.watchUrl, ...localStore.watchlist];
                         }
                     }}>
                     <Icon icon="lucide:list-video" inline={true} />
@@ -54,7 +54,7 @@
                         if (favorited) {
                             localStore.favorites = localStore.favorites.filter((url) => url !== movie.watchUrl);
                         } else {
-                            localStore.favorites.push(movie.watchUrl);
+                            localStore.favorites = [movie.watchUrl, ...localStore.favorites];
                         }
                     }}>
                     <Icon icon="lucide:heart" inline={true} />
