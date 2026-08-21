@@ -1,21 +1,11 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import MovieCard from "$lib/components/MovieCard.svelte";
     import movieCatalog from "$lib/assets/movie-catalog.json";
     import MovieCarousel from "$lib/components/MovieCarousel.svelte";
     import { localStore } from "$lib/localStore.svelte";
     import { homepageSectionsMap } from "$lib/data/homepageSections";
 
     let movies: any[] = $state([]);
-
-    let watchlist = $derived(localStore.watchlist);
-    let favorites = $derived(localStore.favorites);
-
-    let topRatedMovies = $derived(movies.filter((movie) => parseFloat(movie.rating) >= 7.9));
-    let crimeMovies = $derived(movies.filter((movie) => movie.genres?.includes("Crime")));
-    let dramaMovies = $derived(movies.filter((movie) => movie.genres?.includes("Drama")));
-    let actionMovies = $derived(movies.filter((movie) => movie.genres?.includes("Action")));
-    let scifiMovies = $derived(movies.filter((movie) => movie.genres?.includes("Sci-Fi")));
 
     onMount(() => {
         movies = movieCatalog;
@@ -35,3 +25,23 @@
         {/if}
     {/each}
 </div>
+
+{#if localStore.showWelcomeScreen}
+    <div class="modal modal-open">
+        <div class="modal-box text-center">
+            <h2 class="text-3xl font-bold mb-2">Welcome to Kinoa!</h2>
+            <p class="mb-2">
+                Kinoa is the world's first completely free, open-source, and legal movie streaming website.
+            </p>
+            <p class="mb-2">
+                Find movies to add to your watchlist, and save your favorites for future rewatching. Customize your homepage in Settings to browse your way.
+            </p>
+            <p class="mb-2">
+                All data is stored locally on your device and never leaves your browser. No tracking, no ads, no data collection.
+            </p>
+            <button class="btn btn-primary mt-2" onclick={() => { localStore.showWelcomeScreen = false; }}>
+                Start Watching
+            </button>
+        </div>
+    </div>
+{/if}
