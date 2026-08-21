@@ -25,7 +25,7 @@
 			Home
 		</a>
 		<a href={resolve('/search')} class="btn btn-ghost">
-			All Movies
+			Search
 		</a>
     </div>
 	<div class="navbar-end mx-3 hidden sm:flex">
@@ -50,7 +50,7 @@
 		<div class="modal-box">
 			<ul class="menu min-h-full w-50 text-lg">
 				<li><a href={resolve('/')} onclick={() => { burgerMenuOpen = false; }}>Home</a></li>
-				<li><a href={resolve('/search')} onclick={() => { burgerMenuOpen = false; }}>All Movies</a></li>
+				<li><a href={resolve('/search')} onclick={() => { burgerMenuOpen = false; }}>Search</a></li>
 				<li><a href={resolve('/settings')} onclick={() => { burgerMenuOpen = false; }}>Settings</a></li>
 			</ul>
 			<button class="btn btn-circle btn-ghost absolute right-5 top-3" title="Close Menu" onclick={() => { burgerMenuOpen = false; }}>
