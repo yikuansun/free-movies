@@ -5,7 +5,7 @@
 
 <div class="w-full overflow-x-scroll snap-x snap-mandatory">
     <div class="w-fit flex flex-row">
-        {#each movies as movie (movie.watchUrl)}
+        {#each movies.filter((movie) => !!movie) as movie (movie.watchUrl)}
             <div class="snap-start">
                 <MovieCard {movie} />
             </div>
