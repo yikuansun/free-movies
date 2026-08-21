@@ -29,9 +29,9 @@
 		</a>
     </div>
 	<div class="navbar-end mx-3 hidden sm:flex">
-		<button class="btn btn-ghost btn-circle" title="Settings">
+		<a class="btn btn-ghost btn-circle" href={resolve('/settings')}>
 			<Icon icon="lucide:settings" inline={true} width="20" />
-		</button>
+		</a>
 	</div>
 	<div class="navbar-end mx-3 flex sm:hidden">
 		<button class="btn btn-ghost btn-circle" title="Menu" onclick={() => { burgerMenuOpen = true; }}>
