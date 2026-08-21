@@ -44,12 +44,11 @@
 {@render children()}
 
 {#if burgerMenuOpen}
-	<div class="modal modal-end modal-open" out:fade={{ duration: 100 }}>
+	<div class="modal modal-end modal-open sm:hidden" out:fade={{ duration: 100 }}>
 		<button class="modal-backdrop" onclick={() => { burgerMenuOpen = false; }}
 			title="Return to page"></button>
 		<div class="modal-box">
 			<ul class="menu min-h-full w-64">
-				<!-- Sidebar content here -->
 				<li><a href={resolve('/')} onclick={() => { burgerMenuOpen = false; }}>Home</a></li>
 				<li><a href={resolve('/search')} onclick={() => { burgerMenuOpen = false; }}>All Movies</a></li>
 				<li><button onclick={() => { burgerMenuOpen = false; }}>Settings</button></li>
