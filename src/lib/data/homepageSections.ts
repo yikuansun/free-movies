@@ -35,6 +35,30 @@ export const homepageSectionsMap: Record<string, HomepageSection> = {
         displayName: "Science Fiction",
         filter: (movie) => movie.genres?.includes("Sci-Fi") || false,
     },
+    "genre:comedy": {
+        displayName: "Comedies",
+        filter: (movie) => movie.genres?.includes("Comedy") || false,
+    },
+    "genre:history": {
+        displayName: "Historical Dramas",
+        filter: (movie) => movie.genres?.includes("History") || false,
+    },
+    "genre:horror": {
+        displayName: "Horror Movies",
+        filter: (movie) => movie.genres?.includes("Horror") || false,
+    },
+    "genre:romcom": {
+        displayName: "Romcoms",
+        filter: (movie) => movie.genres?.includes("Romance") && movie.genres?.includes("Comedy") || false,
+    },
+    "genre:thriller": {
+        displayName: "Thrillers",
+        filter: (movie) => movie.genres?.includes("Thriller") || false,
+    },
+    "genre:war": {
+        displayName: "War Movies",
+        filter: (movie) => movie.genres?.includes("War") || false,
+    }
 };
 
 export const availableHomepageSectionKeys: string[] = Object.keys(homepageSectionsMap);
