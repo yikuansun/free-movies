@@ -31,7 +31,7 @@ jobs:
       - name: Create .env file
         run: |
           touch .env
-          echo "OMDB_API_KEY=${{ secrets.OMDB_API_KEY }}" >> .env
+          echo "TMDB_API_TOKEN=${{ secrets.TMDB_API_TOKEN }}" >> .env
           echo "YOUTUBE_DATA_API_KEY=${{ secrets.YOUTUBE_DATA_API_KEY }}" >> .env
 
       - name: Install dependencies
