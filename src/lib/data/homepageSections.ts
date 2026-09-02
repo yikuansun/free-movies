@@ -17,7 +17,7 @@ export const homepageSectionsMap: Record<string, HomepageSection> = {
     },
     "top-rated": {
         displayName: "Top Rated",
-        filter: (movie) => (movie.rating as number) >= 7.9,
+        filter: (movie) => (movie.rating as number) >= 7.7,
     },
     "genre:crime": {
         displayName: "Crime Movies",
