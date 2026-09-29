@@ -52,8 +52,10 @@ async function getTmdbId(title) {
 
   const response = await fetch(endpoint, options);
   if (!response.ok) return null;
-  const data = (await response.json())?.results?.[0];
-  return data?.id;
+  const results = (await response.json())?.results;
+  const exactMatch = results?.find((result) => result.title === title);
+  if (exactMatch) return exactMatch.id;
+  return results?.[0]?.id;
 }
 
 async function getTmdbData(title) {
