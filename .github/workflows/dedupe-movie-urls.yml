@@ -1,0 +1,57 @@
+name: Deduplicate Movie URLs
+
+on:
+  push:
+    paths:
+      - 'src/lib/assets/movie-urls.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  dedupe:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Use a token with write access so the commit can push back
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - name: Check for and remove duplicate URLs
+        id: dedupe
+        run: |
+          FILE="src/lib/assets/movie-urls.txt"
+
+          # Count lines before deduplication (ignoring blank lines)
+          BEFORE=$(grep -c . "$FILE" || true)
+
+          # Remove duplicates while preserving order, strip trailing whitespace
+          awk '!seen[$0]++ && NF' "$FILE" > "$FILE.deduped"
+          mv "$FILE.deduped" "$FILE"
+
+          AFTER=$(grep -c . "$FILE" || true)
+          REMOVED=$(( BEFORE - AFTER ))
+
+          echo "before=$BEFORE" >> "$GITHUB_OUTPUT"
+          echo "after=$AFTER"   >> "$GITHUB_OUTPUT"
+          echo "removed=$REMOVED" >> "$GITHUB_OUTPUT"
+
+          if [ "$REMOVED" -gt 0 ]; then
+            echo "found_duplicates=true" >> "$GITHUB_OUTPUT"
+            echo "::notice file=$FILE::Removed $REMOVED duplicate URL(s). $AFTER unique URLs remain."
+          else
+            echo "found_duplicates=false" >> "$GITHUB_OUTPUT"
+            echo "::notice file=$FILE::No duplicates found. $AFTER URLs are all unique."
+          fi
+
+      - name: Commit deduplicated file
+        if: steps.dedupe.outputs.found_duplicates == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/lib/assets/movie-urls.txt
+          git commit -m "chore: remove ${{ steps.dedupe.outputs.removed }} duplicate URL(s) from movie-urls.txt [skip ci]"
+          git push
