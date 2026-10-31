@@ -106,7 +106,8 @@ async function getVideoMetadata(url) {
 }
 
 export async function createMovieCatalog(movieUrls) {
-  const movies = movieUrls.split("\n").filter((url) => url.trim() !== "");
+  let movies = movieUrls.split("\n").filter((url) => url.trim() !== "");
+  movies = [...new Set(movies)];
   const promises = movies.map((url) => getVideoMetadata(url));
   let catalog = await Promise.all(promises);
   catalog = catalog.filter((movie) => !!movie);
